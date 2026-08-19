@@ -1,51 +1,20 @@
-# Hostel Ledger — Expense Tracker
+Hostel Ledger — Expense Tracker
 
-A simple, beginner-friendly expense tracker built for an engineering student living in a hostel. Log daily expenses, set a monthly budget, and see where your money is going — all in the browser, no sign-up required.
+A simple expense tracker for hostel students. Log daily expenses, set a monthly budget, and see where your money is going — all in the browser.
 
-## Features
+Features
 
-- Set and update a monthly budget
-- Add expenses with name, amount, category, date, and an optional description
-- Automatic totals: amount spent, remaining budget, number of entries
-- Category-wise spending breakdown
-- Search expenses by name or description
-- Filter expenses by category and by month
-- Budget progress bar with warnings at 75%, 90%, and 100% of budget used
-- Delete any expense entry
-- Data is saved automatically in the browser's local storage — it's still there after you refresh the page
+Set a monthly budget and track spending against it
+Add, search, filter, and delete expenses by name, category, or date
+Category-wise spending breakdown
+Budget warnings at 75%, 90%, and 100% usage
+Auto-saves to browser local storage — data persists on refresh
 
-## Tech Stack
+Tech Stack: HTML, CSS, vanilla JavaScript (no frameworks, no backend)
 
-- HTML
-- CSS
-- Vanilla JavaScript (no frameworks or libraries)
-- Browser `localStorage` for data persistence
+Getting Started
 
-No backend, server, or database — this is a fully client-side app.
+Clone or download this repo
+Open index.html in your browser — that's it
 
-## Project Structure
-
-```
-expense-tracker/
-├── index.html   # page structure
-├── style.css    # styling
-├── script.js    # app logic
-└── README.md
-```
-
-## Getting Started
-
-1. Clone or download this repository.
-2. Open `index.html` directly in your browser — no build step or server needed.
-   - Or, for a smoother dev experience, open the folder in VS Code and use the **Live Server** extension.
-
-That's it. Set a budget, start adding expenses, and the dashboard updates automatically.
-
-## Notes
-
-- All data is stored only in your browser's local storage on this device. Clearing your browser's site data, or opening the app in a different browser/device, will not carry your data over.
-- Categories included: Food / Mess, Travel, College / Study, Hostel, Mobile / Internet, Entertainment, Shopping, Medical, Other.
-
-## License
-
-Free to use and modify for personal or educational purposes.
+Note: Data is stored only in your browser's local storage on this device.
