@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hostel Ledger — Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER: Passbook cover ===== -->
+  <header class="cover">
+    <div class="cover-inner">
+      <p class="cover-eyebrow">Personal Account Book</p>
+      <h1 class="cover-title">Hostel Ledger</h1>
+      
+    </div>
+    
+  </header>
+
+  <main class="page">
+
+    <!-- ===== BUDGET SETUP ===== -->
+    <section class="card budget-card" aria-label="Monthly budget">
+      <div class="card-head">
+        <h2>Monthly Budget</h2>
+      </div>
+      <form id="budgetForm" class="budget-form">
+        <label for="budgetInput">Set this month's budget (₹)</label>
+        <div class="budget-row">
+          <input type="number" id="budgetInput" min="0" step="1" placeholder="e.g. 8000" required />
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== DASHBOARD SUMMARY ===== -->
+    <section class="dashboard" aria-label="Summary">
+      <div class="stat-line">
+        <span class="stat-label">Budget</span>
+        <span class="stat-value" id="statBudget">₹0</span>
+      </div>
+      <div class="stat-line">
+        <span class="stat-label">Spent</span>
+        <span class="stat-value" id="statSpent">₹0</span>
+      </div>
+      <div class="stat-line total">
+        <span class="stat-label">Remaining</span>
+        <span class="stat-value" id="statRemaining">₹0</span>
+      </div>
+      <div class="stat-line small">
+        <span class="stat-label">Entries logged</span>
+        <span class="stat-value" id="statCount">0</span>
+      </div>
+      <div class="stat-line small">
+        <span class="stat-label">Top category</span>
+        <span class="stat-value" id="statTopCategory">—</span>
+      </div>
+
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-note" id="progressNote">No spending recorded yet.</p>
+    </section>
+
+    <!-- ===== CATEGORY BREAKDOWN ===== -->
+    <section class="card" aria-label="Category breakdown">
+      <div class="card-head">
+        <h2>Where it's going</h2>
+      </div>
+      <ul class="category-list" id="categoryList">
+        <!-- filled by JS -->
+      </ul>
+    </section>
+
+    <!-- ===== ADD EXPENSE FORM ===== -->
+    <section class="card" aria-label="Add an expense">
+      <div class="card-head">
+        <h2>New Entry</h2>
+      </div>
+      <form id="expenseForm" class="expense-form">
+        <div class="field">
+          <label for="nameInput">Expense name</label>
+          <input type="text" id="nameInput" placeholder="e.g. Canteen dinner" required />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="amountInput">Amount (₹)</label>
+            <input type="number" id="amountInput" min="0.01" step="0.01" placeholder="0.00" required />
+          </div>
+          <div class="field">
+            <label for="dateInput">Date</label>
+            <input type="date" id="dateInput" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="categoryInput">Category</label>
+          <select id="categoryInput" required>
+            <option value="" disabled selected>Choose a category</option>
+            <option value="Food / Mess">Food / Mess</option>
+            <option value="Travel">Travel</option>
+            <option value="College / Study">College / Study</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Mobile / Internet">Mobile / Internet</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Medical">Medical</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="descriptionInput">Description <span class="optional">(optional)</span></label>
+          <input type="text" id="descriptionInput" placeholder="Any extra detail" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Add to ledger</button>
+        <p class="form-error" id="formError" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- ===== FILTER + SEARCH ===== -->
+    <section class="card" aria-label="Filter and search expenses">
+      <div class="card-head">
+        <h2>Find an entry</h2>
+      </div>
+      <div class="filter-row">
+        <div class="field">
+          <label for="searchInput">Search</label>
+          <input type="text" id="searchInput" placeholder="Search name or description" />
+        </div>
+        <div class="field">
+          <label for="filterCategory">Category</label>
+          <select id="filterCategory">
+            <option value="all">All categories</option>
+            <option value="Food / Mess">Food / Mess</option>
+            <option value="Travel">Travel</option>
+            <option value="College / Study">College / Study</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Mobile / Internet">Mobile / Internet</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Medical">Medical</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filterMonth">Month</label>
+          <input type="month" id="filterMonth" />
+        </div>
+      </div>
+      <button type="button" class="btn btn-ghost" id="clearFiltersBtn">Clear filters</button>
+    </section>
+
+    <!-- ===== EXPENSE LIST ===== -->
+    <section class="card" aria-label="Expense entries">
+      <div class="card-head">
+        <h2>Entries</h2>
+        <span class="entry-count" id="visibleCount">0 shown</span>
+      </div>
+      <ul class="ledger-list" id="expenseList">
+        <!-- filled by JS -->
+      </ul>
+      <p class="empty-state" id="emptyState">No entries yet. Add your first expense above.</p>
+    </section>
+
+  </main>
+
+ 
+
+  <script src="script.js"></script>
+</body>
+</html>

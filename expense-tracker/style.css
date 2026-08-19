@@ -1,0 +1,389 @@
+/* =========================================================
+   Design tokens
+   Ink Navy   #1B2A4A   headers, primary text, ruled lines
+   Paper      #EFEEE6   page background
+   Card Paper #FBFAF5   card surfaces (slightly lighter)
+   Ledger Grn #2F6B4F   positive values, "normal" status
+   Warn Gold  #B8842C   warning status
+   Rupee Red  #B23A48   critical / exceeded / delete
+   Line Grey  #D8D3C2   ruled lines, borders
+   ========================================================= */
+
+:root {
+  --ink: #3aa17d;
+  --paper: #EFEEE6;
+  --card: #FBFAF5;
+  --green: #2F6B4F;
+  --gold: #B8842C;
+  --red: #B23A48;
+  --line: #D8D3C2;
+  --muted: #6B6759;
+
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'Work Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 2.2rem;
+  background-position: 0 9.5rem;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ===== Cover / header ===== */
+.cover {
+  position: relative;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2.5rem 1.5rem 2.75rem;
+  border-bottom: 6px double var(--gold);
+}
+
+.cover-inner { max-width: 640px; margin: 0 auto; }
+
+.cover-eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  color: #C9BE9C;
+  margin: 0 0 0.4rem;
+}
+
+.cover-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.1rem;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.01em;
+}
+
+.cover-sub {
+  margin: 0;
+  color: #D9D5C5;
+  font-size: 0.95rem;
+}
+
+/* Stamp badge — the signature element, shows budget status like a rubber stamp */
+.stamp {
+  position: absolute;
+  top: 2rem;
+  right: 1.5rem;
+  border: 3px solid var(--green);
+  color: var(--green);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.7rem;
+  border-radius: 4px;
+  transform: rotate(-8deg);
+  background: rgba(47, 107, 79, 0.08);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.stamp.warning { color: var(--gold); border-color: var(--gold); background: rgba(184, 132, 44, 0.1); }
+.stamp.critical,
+.stamp.exceeded { color: var(--red); border-color: var(--red); background: rgba(178, 58, 72, 0.1); }
+
+/* ===== Page layout ===== */
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.6rem;
+}
+
+.card-head h2 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.entry-count { font-size: 0.8rem; color: var(--muted); }
+
+/* ===== Budget form ===== */
+.budget-form label,
+.field label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.budget-row { display: flex; gap: 0.6rem; }
+
+input, select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+
+input:focus-visible, select:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: 4px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-full { width: 100%; margin-top: 0.5rem; }
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  margin-top: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+
+/* ===== Dashboard ===== */
+.dashboard {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+.stat-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.stat-line:last-of-type { border-bottom: none; }
+
+.stat-label { font-size: 0.85rem; color: var(--muted); }
+
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.stat-line.total .stat-value { color: var(--green); font-size: 1.4rem; }
+.stat-line.small .stat-value { font-size: 0.95rem; font-weight: 400; }
+
+.progress-track {
+  margin-top: 1rem;
+  height: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--green);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.progress-fill.warning { background: var(--gold); }
+.progress-fill.critical,
+.progress-fill.exceeded { background: var(--red); }
+
+.progress-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ===== Category breakdown ===== */
+.category-list { list-style: none; margin: 0; padding: 0; }
+
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.4rem 0;
+}
+
+.category-name {
+  flex: 0 0 130px;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.category-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--paper);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.category-bar-fill {
+  height: 100%;
+  background: var(--ink);
+  border-radius: 4px;
+}
+
+.category-amount {
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  min-width: 65px;
+  text-align: right;
+}
+
+.category-empty { font-size: 0.85rem; color: var(--muted); }
+
+/* ===== Expense form ===== */
+.expense-form { display: flex; flex-direction: column; gap: 0.8rem; }
+.field-row { display: flex; gap: 0.8rem; }
+.field-row .field { flex: 1; }
+.optional { color: var(--muted); font-weight: 400; }
+
+.form-error {
+  color: var(--red);
+  font-size: 0.85rem;
+  min-height: 1.1em;
+  margin: 0;
+}
+
+/* ===== Filter row ===== */
+.filter-row { display: flex; flex-direction: column; gap: 0.8rem; }
+
+/* ===== Ledger list (expense entries) ===== */
+.ledger-list { list-style: none; margin: 0; padding: 0; }
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.1rem 0.8rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.ledger-row:last-child { border-bottom: none; }
+
+.ledger-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.ledger-amount {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: right;
+}
+
+.ledger-meta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  align-items: center;
+}
+
+.tag {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ledger-desc {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.delete-btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  background: none;
+  border: none;
+  color: var(--red);
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  padding: 0.2rem 0;
+  text-decoration: underline;
+}
+
+.delete-btn:hover { opacity: 0.75; }
+
+.empty-state {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 1rem 0 0.25rem;
+}
+
+/* ===== Footer ===== */
+.page-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 0 1.5rem 2rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 420px) {
+  .cover-title { font-size: 1.7rem; }
+  .stamp { position: static; display: inline-block; margin-top: 1rem; transform: rotate(-4deg); }
+  .field-row { flex-direction: column; }
+  .category-name { flex-basis: 100px; }
+}
